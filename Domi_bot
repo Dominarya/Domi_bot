@@ -1,0 +1,176 @@
+import asyncio
+import datetime
+import time
+import schedule
+import discord
+
+
+from discord.ext.commands import Bot
+
+BOT_PREFIX = ("?")
+TOKEN = "NDk1NTIzODQ5MTY5OTI4MTky.DpDW1g.qt3gxcVlgnQGgwfj8MCoKUlF7xo"
+
+client = Bot(command_prefix=BOT_PREFIX)
+
+
+BDO_server = [
+    ["Calpheon", "libre", "-"],
+    ["Kamasylvia", "libre", "-"],
+    ["Arsha", "libre", "-"],
+    ["Valencia", "libre", "-"],
+    ["Serendia", "libre", "-"],
+    ["Mediah", "libre", "-"],
+    ["Balenos", "libre", "-"],
+    ["Velia", "libre", "-"]
+    ]
+
+time_ = ["-", "-", "-", "-", "-", "-", "-", "-"]
+
+@client.command(name='bdo_ser',
+                description="Nommez le canal où vous allez recruter,"
+                            "Exemple : ?bdo_ser Calpheon, "
+                            "les noms possible sont: "
+                            "Calpheon, Calph, "
+                            "Kamasylvia, Kama, "
+                            "Arsha, arsha, "
+                            "Valencia, Val, "
+                            "Serendia, Ser, "
+                            "Mediah, Med, "
+                            "Balenos, Bal, "
+                            "Velia, Vel, ",
+                Brief="Canal de recrutement",
+                aliases=["server", "rec"],
+                pass_context=True)
+async def bdo_ser(ctx, serv_name):
+    if serv_name in ["Calpheon", "Calph", "Calpheon", "Calph"]:
+        BDO_server[0][1] = str(ctx.message.author.mention)
+        BDO_server[0][2] = str(datetime.datetime.now().strftime('%m/%d/%Y:%H:%M:%S'))
+    if serv_name in ["Kamasylvia", "Kama"]:
+        BDO_server[1][1] = str(ctx.message.author.mention)
+        BDO_server[1][2] = str(datetime.datetime.now().strftime('%m/%d/%Y:%H:%M:%S'))
+    if serv_name in ["Arsha", "arsha"]:
+        BDO_server[2][1] = str(ctx.message.author.mention)
+        BDO_server[2][2] = str(datetime.datetime.now().strftime('%m/%d/%Y:%H:%M:%S'))
+    if serv_name in ["Valencia", "Val"]:
+        BDO_server[3][1] = str(ctx.message.author.mention)
+        BDO_server[3][2] = str(datetime.datetime.now().strftime('%m/%d/%Y:%H:%M:%S'))
+    if serv_name in ["Serendia", "Ser"]:
+        BDO_server[4][1] = str(ctx.message.author.mention)
+        BDO_server[4][2] = str(datetime.datetime.now().strftime('%m/%d/%Y:%H:%M:%S'))
+    if serv_name in ["Mediah", "Med"]:
+        BDO_server[5][1] = str(ctx.message.author.mention)
+        BDO_server[5][2] = str(datetime.datetime.now().strftime('%m/%d/%Y:%H:%M:%S'))
+    if serv_name in ["Balenos", "Bal"]:
+        BDO_server[6][1] = str(ctx.message.author.mention)
+        BDO_server[6][2] = str(datetime.datetime.now().strftime('%m/%d/%Y:%H:%M:%S'))
+    if serv_name in ["Velia", "Vel"]:
+        BDO_server[7][1] = str(ctx.message.author.mention)
+        BDO_server[7][2] = str(datetime.datetime.now().strftime('%m/%d/%Y:%H:%M:%S'))
+    await bdo_say()
+
+async def bdo_say():
+    if BDO_server[0][2] != "-":
+        time_[0] = str(datetime.datetime.strptime(BDO_server[0][2], '%m/%d/%Y:%H:%M:%S').strftime('%H:%M'))
+        if (datetime.datetime.now()-datetime.datetime.strptime(BDO_server[0][2], '%m/%d/%Y:%H:%M:%S')).seconds/60 >= 30:
+            BDO_server[0][1] = "libre"
+            BDO_server[0][2] = "-"
+            time_[0] = "-"
+    if BDO_server[1][2] != "-":
+        time_[1] = str(datetime.datetime.strptime(BDO_server[1][2], '%m/%d/%Y:%H:%M:%S').strftime('%H:%M'))
+        if (datetime.datetime.now()-datetime.datetime.strptime(BDO_server[1][2], '%m/%d/%Y:%H:%M:%S')).seconds / 60>=30:
+            BDO_server[1][1] = "libre"
+            BDO_server[1][2] = "-"
+            time_[1] = "-"
+    if BDO_server[2][2] != "-":
+        time_[2] = str(datetime.datetime.strptime(BDO_server[2][2], '%m/%d/%Y:%H:%M:%S').strftime('%H:%M'))
+        if (datetime.datetime.now() - datetime.datetime.strptime(BDO_server[2][2],
+                                                                 '%m/%d/%Y:%H:%M:%S')).seconds / 60 >= 30:
+            BDO_server[2][1] = "libre"
+            BDO_server[2][2] = "-"
+            time_[2] = "-"
+    if BDO_server[3][2] != "-":
+        time_[3] = str(datetime.datetime.strptime(BDO_server[3][2], '%m/%d/%Y:%H:%M:%S').strftime('%H:%M'))
+        if (datetime.datetime.now() - datetime.datetime.strptime(BDO_server[3][2],
+                                                                 '%m/%d/%Y:%H:%M:%S')).seconds / 60 >= 30:
+            BDO_server[3][1] = "libre"
+            BDO_server[3][2] = "-"
+            time_[3] = "-"
+    if BDO_server[4][2] != "-":
+        time_[4] = str(datetime.datetime.strptime(BDO_server[4][2], '%m/%d/%Y:%H:%M:%S').strftime('%H:%M'))
+        if (datetime.datetime.now() - datetime.datetime.strptime(BDO_server[4][2],
+                                                                 '%m/%d/%Y:%H:%M:%S')).seconds / 60 >= 30:
+            BDO_server[4][1] = "libre"
+            BDO_server[4][2] = "-"
+            time_[4] = "-"
+    if BDO_server[5][2] != "-":
+        time_[5] = str(datetime.datetime.strptime(BDO_server[5][2], '%m/%d/%Y:%H:%M:%S').strftime('%H:%M'))
+        if (datetime.datetime.now() - datetime.datetime.strptime(BDO_server[5][2],
+                                                                 '%m/%d/%Y:%H:%M:%S')).seconds / 60 >= 30:
+            BDO_server[5][1] = "libre"
+            BDO_server[5][2] = "-"
+            time_[5] = "-"
+    if BDO_server[6][2] != "-":
+        time_[6] = str(datetime.datetime.strptime(BDO_server[6][2], '%m/%d/%Y:%H:%M:%S').strftime('%H:%M'))
+        if (datetime.datetime.now() - datetime.datetime.strptime(BDO_server[6][2],
+                                                                 '%m/%d/%Y:%H:%M:%S')).seconds / 60 >= 30:
+            BDO_server[6][1] = "libre"
+            BDO_server[6][2] = "-"
+            time_[6] = "-"
+    if BDO_server[7][2] != "-":
+        time_[7] = str(datetime.datetime.strptime(BDO_server[7][2], '%m/%d/%Y:%H:%M:%S').strftime('%H:%M'))
+        if (datetime.datetime.now() - datetime.datetime.strptime(BDO_server[7][2],
+                                                                 '%m/%d/%Y:%H:%M:%S')).seconds / 60 >= 30:
+            BDO_server[7][1] = "libre"
+            BDO_server[7][2] = "-"
+            time_[7] = "-"
+    await client.say("Calpheon : " + BDO_server[0][1] + ", à : " + str(time_[0]))
+    await client.say("Kamasylvia : " + BDO_server[1][1] + ", à : " + str(time_[1]))
+    await client.say("Arsha : " + BDO_server[2][1] + ", à : " + str(time_[2]))
+    await client.say("Valencia : " + BDO_server[3][1] + ", à : " + str(time_[3]))
+    await client.say("Serendia : " + BDO_server[4][1] + ", à : " + str(time_[4]))
+    await client.say("Mediah : " + BDO_server[5][1] + ", à : " + str(time_[5]))
+    await client.say("Balenos : " + BDO_server[6][1] + ", à : " + str(time_[6]))
+    await client.say("Velia : " + BDO_server[7][1] + ", à : " + str(time_[7]))
+
+@client.command(name='ser_del',
+                description="Lancez cette fonction afin de vous retirer du canal de recrutement"
+                            "Exemple : ?ser_del",
+                pass_context=True)
+async def ser_del(ctx):
+    if BDO_server[0][1] == str(ctx.message.author.mention):
+        BDO_server[0][1] = "libre"
+        BDO_server[0][2] = "-"
+        time_[0] = "-"
+    if BDO_server[1][1] == str(ctx.message.author.mention):
+        BDO_server[1][1] = "libre"
+        BDO_server[1][2] = "-"
+        time_[1] = "-"
+    if BDO_server[2][1] == str(ctx.message.author.mention):
+        BDO_server[2][1] = "libre"
+        BDO_server[2][2] = "-"
+        time_[2] = "-"
+    if BDO_server[3][1] == str(ctx.message.author.mention):
+        BDO_server[3][1] = "libre"
+        BDO_server[3][2] = "-"
+        time_[3] = "-"
+    if BDO_server[4][1] == str(ctx.message.author.mention):
+        BDO_server[4][1] = "libre"
+        BDO_server[4][2] = "-"
+        time_[4] = "-"
+    if BDO_server[5][1] == str(ctx.message.author.mention):
+        BDO_server[5][1] = "libre"
+        BDO_server[5][2] = "-"
+        time_[5] = "-"
+    if BDO_server[6][1] == str(ctx.message.author.mention):
+        BDO_server[6][1] = "libre"
+        BDO_server[6][2] = "-"
+        time_[6] = "-"
+    if BDO_server[7][1] == str(ctx.message.author.mention):
+        BDO_server[7][1] = "libre"
+        BDO_server[7][2] = "-"
+        time_[7] = "-"
+    await bdo_say()
+
+
+client.run(TOKEN)
+
